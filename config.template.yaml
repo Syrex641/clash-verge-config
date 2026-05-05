@@ -1,0 +1,523 @@
+# Clash Verge / Mihomo cloud template
+# Safe to host on GitHub. Do not commit private subscription URLs.
+
+port: 7890
+socks-port: 7891
+mixed-port: 7897
+allow-lan: true
+bind-address: "*"
+mode: rule
+log-level: info
+ipv6: false
+unified-delay: true
+tcp-concurrent: true
+external-controller: 127.0.0.1:9090
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+dns:
+  enable: true
+  ipv6: false
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+    - "localhost"
+    - "*.srv.nintendo.net"
+    - "*.stun.playstation.net"
+    - "xbox.*.microsoft.com"
+    - "*.xboxlive.com"
+    - "*.battlenet.com.cn"
+    - "*.battlenet.com"
+    - "*.blzstatic.cn"
+    - "*.battle.net"
+
+proxy-providers:
+  订阅代理:
+    type: http
+    url: "" # Sub-Store 或 Clash/Mihomo 订阅链接由你在云端/客户端填写
+    interval: 86400
+    path: ./providers/subscription.yaml
+    health-check:
+      enable: true
+      interval: 300
+      url: http://www.google.com/generate_204
+
+proxy-groups:
+  - name: "🌐 全球直连"
+    type: select
+    proxies:
+      - "DIRECT"
+  - name: "✈️ 节点选择"
+    type: select
+    proxies:
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+      - "🚀 手动选择"
+  - name: "📲 电报信息"
+    type: select
+    proxies:
+      - "✈️ 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🎥 奈飞视频"
+    type: select
+    proxies:
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🎬 迪士尼+"
+    type: select
+    proxies:
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "📹 油管视频"
+    type: select
+    proxies:
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "📽 哔哩哔哩"
+    type: select
+    proxies:
+      - "🌐 全球直连"
+      - "🇭🇰 香港节点"
+      - "🇯🇵 日本节点"
+  - name: "🍿 国外媒体"
+    type: select
+    proxies:
+      - "✈️ 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🍔 国内媒体"
+    type: select
+    proxies:
+      - "🌐 全球直连"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🍟 谷歌服务"
+    type: select
+    proxies:
+      - "🌐 全球直连"
+      - "✈️ 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🤖 OpenAI"
+    type: select
+    proxies:
+      - "✈️ 节点选择"
+      - "🇺🇲 美国节点"
+      - "🇭🇰 香港节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🧠 Anthropic"
+    type: select
+    proxies:
+      - "✈️ 节点选择"
+      - "🇺🇲 美国节点"
+      - "🇭🇰 香港节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "Steam"
+    type: select
+    proxies:
+      - "✈️ 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "Steam Download"
+    type: select
+    proxies:
+      - "DIRECT"
+      - "🌐 全球直连"
+      - "✈️ 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "Ⓜ️ 微软服务"
+    type: select
+    proxies:
+      - "🌐 全球直连"
+      - "✈️ 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🍎 苹果服务"
+    type: select
+    proxies:
+      - "🌐 全球直连"
+      - "✈️ 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🎮 游戏平台"
+    type: select
+    proxies:
+      - "🌐 全球直连"
+      - "✈️ 节点选择"
+      - "🇭🇰 香港节点"
+      - "🇺🇲 美国节点"
+      - "🇸🇬 新加坡节点"
+      - "🇯🇵 日本节点"
+      - "🇨🇳 台湾节点"
+  - name: "🇭🇰 香港节点"
+    type: fallback
+    url: http://www.google.com/generate_204
+    interval: 300
+    filter: "🇭🇰|港|Hong|HK"
+    use:
+      - "订阅代理"
+  - name: "🇨🇳 台湾节点"
+    type: fallback
+    url: http://www.google.com/generate_204
+    interval: 300
+    filter: "🇨🇳|台|Tai|TW"
+    use:
+      - "订阅代理"
+  - name: "🇺🇲 美国节点"
+    type: fallback
+    url: http://www.google.com/generate_204
+    interval: 300
+    filter: "🇺🇸|美|States|US"
+    use:
+      - "订阅代理"
+  - name: "🇯🇵 日本节点"
+    type: fallback
+    url: http://www.google.com/generate_204
+    interval: 300
+    filter: "🇯🇵|日|Japan|JP"
+    use:
+      - "订阅代理"
+  - name: "🇸🇬 新加坡节点"
+    type: fallback
+    url: http://www.google.com/generate_204
+    interval: 300
+    filter: "🇸🇬|新|Singapore|SG"
+    use:
+      - "订阅代理"
+  - name: "🚀 手动选择"
+    type: select
+    use:
+      - "订阅代理"
+
+rule-providers:
+  Lan:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml"
+    path: ./ruleset/Lan.yaml
+    interval: 86400
+    format: yaml
+  Apple:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple.yaml"
+    path: ./ruleset/Apple.yaml
+    interval: 86400
+    format: yaml
+  Microsoft:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml"
+    path: ./ruleset/Microsoft.yaml
+    interval: 86400
+    format: yaml
+  Telegram:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/ASN.Telegram.list"
+    path: ./ruleset/Telegram.list
+    interval: 86400
+    format: text
+  Epic:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Epic/Epic.yaml"
+    path: ./ruleset/Epic.yaml
+    interval: 86400
+    format: yaml
+  Sony:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Sony/Sony.yaml"
+    path: ./ruleset/Sony.yaml
+    interval: 86400
+    format: yaml
+  PlayStation:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/PlayStation/PlayStation.yaml"
+    path: ./ruleset/PlayStation.yaml
+    interval: 86400
+    format: yaml
+  Xbox:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Xbox/Xbox.yaml"
+    path: ./ruleset/Xbox.yaml
+    interval: 86400
+    format: yaml
+  Blizzard:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Blizzard/Blizzard.yaml"
+    path: ./ruleset/Blizzard.yaml
+    interval: 86400
+    format: yaml
+  Battle:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Battle/Battle.yaml"
+    path: ./ruleset/Battle.yaml
+    interval: 86400
+    format: yaml
+  EA:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/EA/EA.yaml"
+    path: ./ruleset/EA.yaml
+    interval: 86400
+    format: yaml
+  Origin:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Origin/Origin.yaml"
+    path: ./ruleset/Origin.yaml
+    interval: 86400
+    format: yaml
+  Ubisoft:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Ubisoft/Ubisoft.yaml"
+    path: ./ruleset/Ubisoft.yaml
+    interval: 86400
+    format: yaml
+  Riot:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Riot/Riot.yaml"
+    path: ./ruleset/Riot.yaml
+    interval: 86400
+    format: yaml
+  Rockstar:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Rockstar/Rockstar.yaml"
+    path: ./ruleset/Rockstar.yaml
+    interval: 86400
+    format: yaml
+  Gog:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gog/Gog.yaml"
+    path: ./ruleset/Gog.yaml
+    interval: 86400
+    format: yaml
+  HoYoverse:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/HoYoverse/HoYoverse.yaml"
+    path: ./ruleset/HoYoverse.yaml
+    interval: 86400
+    format: yaml
+  Garena:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Garena/Garena.yaml"
+    path: ./ruleset/Garena.yaml
+    interval: 86400
+    format: yaml
+  Nintendo:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Nintendo/Nintendo.yaml"
+    path: ./ruleset/Nintendo.yaml
+    interval: 86400
+    format: yaml
+  YouTube:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml"
+    path: ./ruleset/YouTube.yaml
+    interval: 86400
+    format: yaml
+  Netflix:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Netflix/Netflix.yaml"
+    path: ./ruleset/Netflix.yaml
+    interval: 86400
+    format: yaml
+  Disney:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Disney/Disney.yaml"
+    path: ./ruleset/Disney.yaml
+    interval: 86400
+    format: yaml
+  BiliBili:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BiliBili/BiliBili.yaml"
+    path: ./ruleset/BiliBili.yaml
+    interval: 86400
+    format: yaml
+  ChinaMedia:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaMedia/ChinaMedia.yaml"
+    path: ./ruleset/ChinaMedia.yaml
+    interval: 86400
+    format: yaml
+  GlobalMedia:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia.yaml"
+    path: ./ruleset/GlobalMedia.yaml
+    interval: 86400
+    format: yaml
+  Google:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml"
+    path: ./ruleset/Google.yaml
+    interval: 86400
+    format: yaml
+  OpenAI:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml"
+    path: ./ruleset/OpenAI.yaml
+    interval: 86400
+    format: yaml
+  Anthropic:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Anthropic/Anthropic.yaml"
+    path: ./ruleset/Anthropic.yaml
+    interval: 86400
+    format: yaml
+  Proxy:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Proxy/Proxy.yaml"
+    path: ./ruleset/Proxy.yaml
+    interval: 86400
+    format: yaml
+  ChinaASN:
+    type: http
+    behavior: classical
+    url: "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaASN/ChinaASN_Resolve.list"
+    path: ./ruleset/ChinaASN.list
+    interval: 86400
+    format: text
+
+rules:
+  - "# 自定义规则"
+  - "DOMAIN-SUFFIX,nebula-media.org,🍿 国外媒体"
+  - "DOMAIN-SUFFIX,nb-media.xyz,DIRECT"
+  - "DOMAIN,cdn.123456.buzz,🌐 全球直连"
+  - "IP-CIDR,192.99.35.111/32,DIRECT,no-resolve"
+  - "DOMAIN-SUFFIX,jmsuper.com,🍿 国外媒体"
+  - "DOMAIN,e1c.tls.ink,DIRECT"
+  - "IP-CIDR,0.0.0.0/32,REJECT,no-resolve"
+
+  - "# 局域网地址"
+  - "RULE-SET,Lan,🌐 全球直连"
+  - "# 苹果服务"
+  - "RULE-SET,Apple,🍎 苹果服务"
+  - "# 微软服务"
+  - "RULE-SET,Microsoft,Ⓜ️ 微软服务"
+  - "# 社交平台"
+  - "RULE-SET,Telegram,📲 电报信息"
+  - "# Steam 商店、社区和 API 走代理"
+  - "DOMAIN-SUFFIX,steamcommunity.com,Steam"
+  - "DOMAIN-SUFFIX,store.steampowered.com,Steam"
+  - "DOMAIN-SUFFIX,api.steampowered.com,Steam"
+  - "DOMAIN-SUFFIX,steamcharts.com,Steam"
+  - "# Steam 下载相关域名直连"
+  - "DOMAIN-SUFFIX,cdn.steampowered.com,Steam Download"
+  - "DOMAIN-SUFFIX,steampowered.com,Steam Download"
+  - "DOMAIN-SUFFIX,steamstatic.com,Steam Download"
+  - "DOMAIN-SUFFIX,media.steampowered.com,Steam Download"
+  - "# 游戏平台"
+  - "RULE-SET,Epic,🎮 游戏平台"
+  - "RULE-SET,Sony,🎮 游戏平台"
+  - "RULE-SET,PlayStation,🎮 游戏平台"
+  - "RULE-SET,Xbox,🎮 游戏平台"
+  - "RULE-SET,Blizzard,🎮 游戏平台"
+  - "RULE-SET,Battle,🎮 游戏平台"
+  - "RULE-SET,EA,🎮 游戏平台"
+  - "RULE-SET,Origin,🎮 游戏平台"
+  - "RULE-SET,Ubisoft,🎮 游戏平台"
+  - "RULE-SET,Riot,🎮 游戏平台"
+  - "RULE-SET,Rockstar,🎮 游戏平台"
+  - "RULE-SET,Gog,🎮 游戏平台"
+  - "RULE-SET,HoYoverse,🎮 游戏平台"
+  - "RULE-SET,Garena,🎮 游戏平台"
+  - "RULE-SET,Nintendo,🎮 游戏平台"
+  - "# 流媒体"
+  - "RULE-SET,YouTube,📹 油管视频"
+  - "RULE-SET,Netflix,🎥 奈飞视频"
+  - "RULE-SET,Disney,🎬 迪士尼+"
+  - "RULE-SET,BiliBili,📽 哔哩哔哩"
+  - "RULE-SET,ChinaMedia,🍔 国内媒体"
+  - "RULE-SET,GlobalMedia,🍿 国外媒体"
+  - "# 谷歌服务"
+  - "RULE-SET,Google,🍟 谷歌服务"
+  - "# AI 服务"
+  - "RULE-SET,OpenAI,🤖 OpenAI"
+  - "RULE-SET,Anthropic,🧠 Anthropic"
+  - "# Proxy"
+  - "RULE-SET,Proxy,✈️ 节点选择"
+  - "# Emby"
+  - "DOMAIN-SUFFIX,jmsooo.com,🇺🇲 美国节点"
+  - "# China ASN"
+  - "RULE-SET,ChinaASN,🌐 全球直连"
+  - "GEOIP,CN,🌐 全球直连"
+  - "MATCH,✈️ 节点选择"
